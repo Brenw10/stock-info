@@ -1,0 +1,18 @@
+{
+  "name": "stock-info-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "npx nodemon ./bin/server"
+  },
+  "author": "Brendon Willian Mota",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.4"
+  }
+}
