@@ -1,12 +1,13 @@
+import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { REDEMPETION } from '../core/constants';
 import user from '../services/user';
-import '../styles/users.css';
-import Button from '@material-ui/core/Button';
 
 class Users extends Component {
   constructor(props) {
@@ -17,6 +18,9 @@ class Users extends Component {
   }
   componentDidMount() {
     user.getUsers().then(users => this.setState({ users }));
+  }
+  canRedemption(userStatus) {
+    return !REDEMPETION.APPROVED_STATUS.find(status => status === userStatus);
   }
   render() {
     return (
@@ -51,11 +55,19 @@ class Users extends Component {
         <TableCell align='center'>{user.fieldData.status}</TableCell>
         <TableCell align='center'>{user.fieldData.createdAt}</TableCell>
         <TableCell align='center'>
-          <Button>Resgate</Button>
+          <Button
+            disabled={this.canRedemption(user.fieldData.status)}
+            onClick={() => this.props.onClickRedemption(user)}>
+            Resgate
+          </Button>
         </TableCell>
       </TableRow>
     );
   }
 }
+
+Users.propTypes = {
+  onClickRedemption: PropTypes.func.isRequired,
+};
 
 export default Users;
