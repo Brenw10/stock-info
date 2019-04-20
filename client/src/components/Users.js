@@ -1,11 +1,12 @@
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import React, { Component } from 'react';
 import user from '../services/user';
 import '../styles/users.css';
+import Button from '@material-ui/core/Button';
 
 class Users extends Component {
   constructor(props) {
@@ -18,30 +19,41 @@ class Users extends Component {
     user.getUsers().then(users => this.setState({ users }));
   }
   render() {
-    if (!this.state.users) return <div></div>;
+    return (
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell align='center'>Name</TableCell>
+            <TableCell align='center'>Parcelas</TableCell>
+            <TableCell align='center'>Saldo portabilidade</TableCell>
+            <TableCell align='center'>Saldo valores adicionais</TableCell>
+            <TableCell align='center'>Saldo contribuições normais</TableCell>
+            <TableCell align='center'>Status</TableCell>
+            <TableCell align='center'>Data da associação</TableCell>
+            <TableCell align='center'>Ação</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {this.renderUser()}
+        </TableBody>
+      </Table>
+    );
+  }
+  renderUser() {
+    if (!this.state.users) return;
     return this.state.users.map((user, key) =>
-      <ExpansionPanel key={key}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>{user.fieldData.name}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className='user-detail'>
-          <Typography variant="overline">
-            Status: {user.fieldData.status}
-          </Typography>
-          <Typography variant="overline">
-            Saldo portabilidade: {user.fieldData.portabilityValue}
-          </Typography>
-          <Typography variant="overline">
-            Saldo valores adicionais: {user.fieldData.additionalValue}
-          </Typography>
-          <Typography variant="overline">
-            Saldo contribuições normais: {user.fieldData.value}
-          </Typography>
-          <Typography variant="overline">
-            Parcelas: {user.fieldData.split}
-          </Typography>
-        </ExpansionPanelDetails>
-      </ExpansionPanel >
+      <TableRow key={key}>
+        <TableCell align='center'>{user.fieldData.name}</TableCell>
+        <TableCell align='center'>{user.fieldData.split}</TableCell>
+        <TableCell align='center'>{user.fieldData.portabilityValue}</TableCell>
+        <TableCell align='center'>{user.fieldData.additionalValue}</TableCell>
+        <TableCell align='center'>{user.fieldData.value}</TableCell>
+        <TableCell align='center'>{user.fieldData.status}</TableCell>
+        <TableCell align='center'>{user.fieldData.createdAt}</TableCell>
+        <TableCell align='center'>
+          <Button>Resgate</Button>
+        </TableCell>
+      </TableRow>
     );
   }
 }
