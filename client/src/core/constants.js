@@ -1,5 +1,6 @@
 module.exports = {
   REDEMPETION: {
     APPROVED_STATUS: ['ATIVO', 'VINCULADO', 'SUSPENSO'],
+    MINIMUM_MONTH_TO_REDEEM: 36,
   },
 };

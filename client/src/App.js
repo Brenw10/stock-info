@@ -4,8 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import React, { Component } from 'react';
-import Faq from './components/Faq';
-import Redemption from './components/Redemption';
 import Users from './components/Users';
 
 class App extends Component {
@@ -14,35 +12,6 @@ class App extends Component {
     this.state = {
       user: null,
     };
-  }
-  renderUsersList() {
-    if (this.state.user) return;
-    return (
-      <Grid container>
-        <Grid item xs={1}></Grid>
-        <Grid item xs={10}>
-          <Paper>
-            <Users onClickRedemption={user => this.setState({ user })} />
-          </Paper>
-        </Grid>
-      </Grid>
-    );
-  }
-  renderRedemption() {
-    if (!this.state.user) return;
-    return (
-      <Grid container>
-        <Grid item xs={4}></Grid>
-        <Grid item xs={4}>
-          <Faq />
-        </Grid>
-        <Grid item xs={4}></Grid>
-        <Grid item xs={4}></Grid>
-        <Grid item xs={4}>
-          <Redemption user={this.state.user} />
-        </Grid>
-      </Grid>
-    );
   }
   render() {
     return (
@@ -54,8 +23,14 @@ class App extends Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        {this.renderUsersList()}
-        {this.renderRedemption()}
+        <Grid container>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={10}>
+            <Paper>
+              <Users />
+            </Paper>
+          </Grid>
+        </Grid>
       </div>
     );
   }
