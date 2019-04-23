@@ -3,6 +3,9 @@ const express = require('express');
 const app = express();
 
 const users = require('./routes/users');
+const redeem = require('./routes/redeem');
+
+app.use(express.json());
 
 app.use((_, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
@@ -18,5 +21,6 @@ app.use((req, _, next) =>
 );
 
 app.use('/users', users);
+app.use('/redeem', redeem);
 
 module.exports = app;

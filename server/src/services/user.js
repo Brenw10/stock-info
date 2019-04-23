@@ -7,4 +7,10 @@ function getUsers(token) {
     .then(response => response.data.response.data);
 }
 
-module.exports = { getUsers };
+function getUser(token, userId) {
+  return axios
+    .get(api.concat(`/layouts/stock/records/${userId}`), { headers: { 'Authorization': "bearer " + token } })
+    .then(response => response.data.response.data[0]);
+}
+
+module.exports = { getUsers, getUser };
