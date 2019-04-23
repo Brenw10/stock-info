@@ -21,7 +21,10 @@ class Users extends Component {
     };
   }
   componentDidMount() {
-    user.getUsers().then(users => this.setState({ users }));
+    this.refreshList();
+  }
+  refreshList() {
+    user.getUsers().then(users => this.setState({ users, user: null }));
   }
   canRedeem(status, createdAt) {
     const date = new Date();
@@ -85,7 +88,7 @@ class Users extends Component {
         </DialogTitle>
         <DialogContent>
           <Faq />
-          <Redeem user={this.state.user} onCancel={() => this.setState({ user: null })} />
+          <Redeem user={this.state.user} onClose={() => this.refreshList()} />
         </DialogContent>
       </Dialog>
     );

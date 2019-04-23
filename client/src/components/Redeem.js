@@ -24,7 +24,8 @@ class Redeem extends Component {
     return values > 0;
   }
   sendRedeem() {
-    redeem.setRedeem(this.props.user.recordId, this.state);
+    return redeem.setRedeem(this.props.user.recordId, this.state)
+      .then(() => this.props.onClose());
   }
   setAllFullValue() {
     this.setState({
@@ -77,7 +78,7 @@ class Redeem extends Component {
         </Grid>
 
         <Grid item xs={1}>
-          <Button color="primary" onClick={() => this.props.onCancel()}>
+          <Button color="primary" onClick={() => this.props.onClose()}>
             Cancelar
           </Button>
         </Grid>
@@ -94,7 +95,7 @@ class Redeem extends Component {
 
 Redeem.propTypes = {
   user: PropTypes.object.isRequired,
-  onCancel: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default Redeem;
