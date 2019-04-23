@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import React, { Component } from 'react';
 import Faq from '../components/Faq';
 import Redeem from '../components/Redeem';
-import { REDEMPETION } from '../core/constants';
+import { REDEEM } from '../core/constants';
 import user from '../services/user';
 
 class Users extends Component {
@@ -23,12 +23,12 @@ class Users extends Component {
   componentDidMount() {
     user.getUsers().then(users => this.setState({ users }));
   }
-  canRedemption(status, createdAt) {
+  canRedeem(status, createdAt) {
     const date = new Date();
     const createdDate = new Date(createdAt);
-    const isAnApprovedStatus = REDEMPETION.APPROVED_STATUS.find(approvedStatus => approvedStatus === status);
+    const isAnApprovedStatus = REDEEM.APPROVED_STATUS.find(approvedStatus => approvedStatus === status);
     const months = (date.getFullYear() - createdDate.getFullYear()) * 12 + (date.getMonth() - createdDate.getMonth());
-    return isAnApprovedStatus && months >= REDEMPETION.MINIMUM_MONTH_TO_REDEEM;
+    return isAnApprovedStatus && months >= REDEEM.MINIMUM_MONTH_TO_REDEEM;
   }
   render() {
     return (
@@ -69,7 +69,7 @@ class Users extends Component {
         <TableCell align='center'>{user.fieldData.createdAt}</TableCell>
         <TableCell align='center'>
           <Button
-            disabled={!this.canRedemption(user.fieldData.status, user.fieldData.createdAt)}
+            disabled={!this.canRedeem(user.fieldData.status, user.fieldData.createdAt)}
             onClick={() => this.setState({ user })}>
             Resgate
           </Button>
@@ -79,8 +79,7 @@ class Users extends Component {
   }
   renderRedeem() {
     return (
-      <Dialog
-        open={!!this.state.user}>
+      <Dialog open={!!this.state.user} maxWidth='lg'>
         <DialogTitle id="customized-dialog-title">
           Resgate de previdencia usuário: {this.state.user.fieldData.name}
         </DialogTitle>

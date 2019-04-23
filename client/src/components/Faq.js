@@ -38,6 +38,19 @@ class Faq extends Component {
             </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography>Como funciona o resgate total?</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className='flex-column'>
+            <Typography>
+              O resgate total fará com que seu dinheiro sejá liberado em até 30 dias apos o recebimento do pedido.
+            </Typography>
+            <Typography>
+              Atenção: Esse resgate causará o cancelamento do plano de previdencia!
+            </Typography>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
       </div>
     );
   }
