@@ -1,4 +1,4 @@
-import { DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { DialogContent, DialogTitle } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Table from '@material-ui/core/Table';
@@ -85,13 +85,8 @@ class Users extends Component {
         </DialogTitle>
         <DialogContent>
           <Faq />
-          <Redeem user={this.state.user} />
+          <Redeem user={this.state.user} onCancel={() => this.setState({ user: null })} />
         </DialogContent>
-        <DialogActions>
-          <Button color="primary">
-            Salvar
-          </Button>
-        </DialogActions>
       </Dialog>
     );
   }
