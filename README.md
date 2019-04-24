@@ -11,6 +11,7 @@
  - Configure permissão de `fmrest` para o usuario que irá logar
 
 ## Configurando back-end
+ - Entre na pasta `server` e rode `npm install`
  - Entre na pasta `server/src/core`
  - Copie e cole `parameters.dist.js` alterando o nome para `parameters.js`
  - Entre no `parameters.js`
@@ -18,6 +19,7 @@
  - Insira o usuario e senha com acesso `fmrest` dentro do auth
 
 ## Configurando front-end
+ - Entre na pasta `client` e rode `npm install`
  - Entre na pasta `client/src/core`
  - Copie e cole `parameters.dist.js` alterando o nome para `parameters.js`
 
