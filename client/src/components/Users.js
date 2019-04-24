@@ -1,4 +1,4 @@
-import { DialogContent, DialogTitle, Snackbar } from '@material-ui/core';
+import { DialogContent, DialogTitle, Fab, Snackbar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Table from '@material-ui/core/Table';
@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import AddIcon from '@material-ui/icons/Add';
 import React, { Component } from 'react';
 import Faq from '../components/Faq';
 import Redeem from '../components/Redeem';
@@ -42,7 +43,6 @@ class Users extends Component {
           <TableHead>
             <TableRow>
               <TableCell align='center'>Name</TableCell>
-              <TableCell align='center'>Parcelas</TableCell>
               <TableCell align='center'>Saldo portabilidade</TableCell>
               <TableCell align='center'>Saldo valores adicionais</TableCell>
               <TableCell align='center'>Saldo contribuições normais</TableCell>
@@ -56,6 +56,9 @@ class Users extends Component {
             {this.renderUser()}
           </TableBody>
         </Table>
+        <Fab color="primary" className='float-button'>
+          <AddIcon />
+        </Fab>
       </div>
     );
   }
@@ -63,9 +66,13 @@ class Users extends Component {
     return (
       <Snackbar
         open={this.state.refresh}
-        autoHideDuration={6000}
+        autoHideDuration={1000}
         onClose={() => this.setState({ refresh: false })}
         message={<span>Lista atualizada</span>}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'middle',
+        }}
       />
     );
   }
@@ -74,7 +81,6 @@ class Users extends Component {
     return this.state.users.map((user, key) =>
       <TableRow key={key}>
         <TableCell align='center'>{user.fieldData.name}</TableCell>
-        <TableCell align='center'>{user.fieldData.split}</TableCell>
         <TableCell align='center'>{user.fieldData.portabilityValue}</TableCell>
         <TableCell align='center'>{user.fieldData.additionalValue}</TableCell>
         <TableCell align='center'>{user.fieldData.value}</TableCell>

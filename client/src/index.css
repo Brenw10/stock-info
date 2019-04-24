@@ -15,3 +15,9 @@ header {
   display: flex;
   flex-direction: column;
 }
+
+body .float-button {
+  position: absolute;
+  right: 25px;
+  bottom: 25px;
+}
