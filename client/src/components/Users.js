@@ -36,7 +36,7 @@ class Users extends Component {
   render() {
     return (
       <div>
-        {this.state.user ? this.renderRedeem() : null}
+        {this.renderRedeem()}
         <Table>
           <TableHead>
             <TableRow>
@@ -81,6 +81,7 @@ class Users extends Component {
     );
   }
   renderRedeem() {
+    if (!this.state.user) return;
     return (
       <Dialog open={!!this.state.user} maxWidth='lg'>
         <DialogTitle id="customized-dialog-title">
