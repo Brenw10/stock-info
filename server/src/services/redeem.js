@@ -1,6 +1,4 @@
-const axios = require('axios');
 const date = require('../services/date');
-const { api } = require('../core/parameters');
 const { REDEEM, USER } = require('../core/constants');
 
 function getPartialRedeemBody(user, data) {
@@ -30,16 +28,10 @@ function getRedeem(user, data) {
     : getPartialRedeemBody(user, data);
 }
 
-function setRedeem(token, userId, body) {
-  return axios
-    .patch(api.concat(`/layouts/stock/records/${userId}`), body, { headers: { 'Authorization': 'bearer ' + token } })
-    .then(response => response.data.response.data);
-}
-
 function canUserRedeem(user) {
   const isAnApprovedStatus = REDEEM.APPROVED_STATUS.find(approvedStatus => approvedStatus === user.fieldData.status);
   const months = date.monthDiff(new Date(), new Date(user.fieldData.createdAt));
   return isAnApprovedStatus && months >= REDEEM.MINIMUM_MONTH_TO_REDEEM;
 }
 
-module.exports = { getRedeem, setRedeem, canUserRedeem };
+module.exports = { getRedeem, canUserRedeem };

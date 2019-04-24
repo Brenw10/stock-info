@@ -40,9 +40,12 @@ class Users extends Component {
       );
   }
   canRedeem(status, createdAt) {
-    const isAnApprovedStatus = REDEEM.APPROVED_STATUS.find(approvedStatus => approvedStatus === status);
+    const isAnApprovedStatus = this.isApprovedStatus(status);
     const months = date.monthDiff(new Date(), new Date(createdAt));
     return isAnApprovedStatus && months >= REDEEM.MINIMUM_MONTH_TO_REDEEM;
+  }
+  isApprovedStatus(status) {
+    return REDEEM.APPROVED_STATUS.find(approvedStatus => approvedStatus === status);
   }
   render() {
     return (
@@ -104,7 +107,9 @@ class Users extends Component {
             onClick={() => this.setState({ user, dialog: 'REDEEM' })}>
             Resgate
           </Button>
-          <Button onClick={() => this.setState({ user, dialog: 'CONTRIBUTE' })}>
+          <Button
+            disabled={!this.isApprovedStatus(user.fieldData.status)}
+            onClick={() => this.setState({ user, dialog: 'CONTRIBUTE' })}>
             Contribuir
           </Button>
         </TableCell>

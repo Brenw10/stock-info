@@ -13,4 +13,10 @@ function getUser(token, userId) {
     .then(response => response.data.response.data[0]);
 }
 
-module.exports = { getUsers, getUser };
+function setUser(token, userId, body) {
+  return axios
+    .patch(api.concat(`/layouts/stock/records/${userId}`), body, { headers: { 'Authorization': 'bearer ' + token } })
+    .then(response => response.data.response.data);
+}
+
+module.exports = { getUsers, getUser, setUser };

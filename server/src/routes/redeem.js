@@ -7,7 +7,7 @@ router.post('/:userId', async (req, res) => {
 	const user = await userService.getUser(req.token, req.params.userId);
 	if (!redeem.canUserRedeem(user)) return res.sendStatus(500);
 	const body = redeem.getRedeem(user, req.body);
-	return redeem.setRedeem(req.token, user.recordId, body).then(() => res.sendStatus(200));
+	return userService.setUser(req.token, user.recordId, body).then(() => res.sendStatus(200));
 });
 
 module.exports = router;

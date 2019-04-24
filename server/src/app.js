@@ -4,6 +4,7 @@ const app = express();
 
 const users = require('./routes/users');
 const redeem = require('./routes/redeem');
+const contribute = require('./routes/contribute');
 
 app.use(express.json());
 
@@ -22,5 +23,6 @@ app.use((req, _, next) =>
 
 app.use('/users', users);
 app.use('/redeem', redeem);
+app.use('/contribute', contribute);
 
 module.exports = app;

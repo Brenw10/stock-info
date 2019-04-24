@@ -16,4 +16,10 @@ module.exports = {
       CANCELED: 'CANCELADO',
     },
   },
+  CONTRIBUTE: {
+    TYPE: {
+      NORMAL: 'NORMAL_CONTRIBUTE',
+      ADDITIONAL: 'ADDITIONAL_CONTRIBUTE',
+    },
+  },
 };
