@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import Faq from '../components/Faq';
 import Redeem from '../components/Redeem';
 import { REDEEM } from '../core/constants';
+import date from '../services/date';
 import user from '../services/user';
 
 class Users extends Component {
@@ -27,10 +28,8 @@ class Users extends Component {
     user.getUsers().then(users => this.setState({ users, user: null }));
   }
   canRedeem(status, createdAt) {
-    const date = new Date();
-    const createdDate = new Date(createdAt);
     const isAnApprovedStatus = REDEEM.APPROVED_STATUS.find(approvedStatus => approvedStatus === status);
-    const months = (date.getFullYear() - createdDate.getFullYear()) * 12 + (date.getMonth() - createdDate.getMonth());
+    const months = date.monthDiff(new Date(), new Date(createdAt));
     return isAnApprovedStatus && months >= REDEEM.MINIMUM_MONTH_TO_REDEEM;
   }
   render() {
