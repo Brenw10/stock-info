@@ -7,4 +7,10 @@ module.exports = {
       FULL: 'FULL_REDEEM',
     },
   },
+  CONTRIBUTE: {
+    TYPE: {
+      NORMAL: 'NORMAL_CONTRIBUTE',
+      ADDITIONAL: 'ADDITIONAL_CONTRIBUTE',
+    },
+  },
 };

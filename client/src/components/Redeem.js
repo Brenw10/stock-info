@@ -23,7 +23,7 @@ class Redeem extends Component {
     const values = portabilityValue + additionalValue + value;
     return values > 0;
   }
-  sendRedeem() {
+  setRedeem() {
     return redeem.setRedeem(this.props.user.recordId, this.state)
       .then(() => this.props.onClose());
   }
@@ -84,7 +84,7 @@ class Redeem extends Component {
         </Grid>
         <Grid item xs={10}></Grid>
         <Grid item xs={1}>
-          <Button color="primary" onClick={() => this.sendRedeem()} disabled={!this.canSendRedeem()}>
+          <Button color="primary" onClick={() => this.setRedeem()} disabled={!this.canSendRedeem()}>
             Salvar
           </Button>
         </Grid>

@@ -21,3 +21,12 @@ body .float-button {
   right: 25px;
   bottom: 25px;
 }
+
+.align-center {
+  text-align: center;
+}
+
+/* It fixes slider lab issue for Dialogs box */
+.MuiDialogContent-root-278 {
+  overflow: hidden;
+}

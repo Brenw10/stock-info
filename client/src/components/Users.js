@@ -13,6 +13,7 @@ import Redeem from '../components/Redeem';
 import { REDEEM } from '../core/constants';
 import date from '../services/date';
 import user from '../services/user';
+import Contribute from './Contribute';
 
 class Users extends Component {
   constructor(props) {
@@ -21,13 +22,22 @@ class Users extends Component {
       users: null,
       user: null,
       refresh: false,
+      dialog: null,
     };
   }
   componentDidMount() {
     this.refreshList();
   }
   refreshList() {
-    user.getUsers().then(users => this.setState({ users, user: null, refresh: true }));
+    user.getUsers()
+      .then(users =>
+        this.setState({
+          users,
+          user: null,
+          refresh: true,
+          dialog: null,
+        })
+      );
   }
   canRedeem(status, createdAt) {
     const isAnApprovedStatus = REDEEM.APPROVED_STATUS.find(approvedStatus => approvedStatus === status);
@@ -38,6 +48,7 @@ class Users extends Component {
     return (
       <div>
         {this.renderRedeem()}
+        {this.renderContribute()}
         {this.renderRefreshSnack()}
         <Table>
           <TableHead>
@@ -90,8 +101,11 @@ class Users extends Component {
         <TableCell align='center'>
           <Button
             disabled={!this.canRedeem(user.fieldData.status, user.fieldData.createdAt)}
-            onClick={() => this.setState({ user })}>
+            onClick={() => this.setState({ user, dialog: 'REDEEM' })}>
             Resgate
+          </Button>
+          <Button onClick={() => this.setState({ user, dialog: 'CONTRIBUTE' })}>
+            Contribuir
           </Button>
         </TableCell>
       </TableRow>
@@ -100,13 +114,26 @@ class Users extends Component {
   renderRedeem() {
     if (!this.state.user) return;
     return (
-      <Dialog open={!!this.state.user} maxWidth='lg'>
+      <Dialog open={this.state.dialog === 'REDEEM'} maxWidth='lg'>
         <DialogTitle id="customized-dialog-title">
-          Resgate de previdencia usuário: {this.state.user.fieldData.name}
+          Resgate previdencia de usuário: {this.state.user.fieldData.name}
         </DialogTitle>
         <DialogContent>
           <Faq />
           <Redeem user={this.state.user} onClose={() => this.refreshList()} />
+        </DialogContent>
+      </Dialog>
+    );
+  }
+  renderContribute() {
+    if (!this.state.user) return;
+    return (
+      <Dialog open={this.state.dialog === 'CONTRIBUTE'} maxWidth='lg'>
+        <DialogTitle id="customized-dialog-title">
+          Contribuir previdencia de usuário: {this.state.user.fieldData.name}
+        </DialogTitle>
+        <DialogContent>
+          <Contribute user={this.state.user} onClose={() => this.refreshList()} />
         </DialogContent>
       </Dialog>
     );
