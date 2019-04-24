@@ -1,4 +1,4 @@
-import { DialogContent, DialogTitle } from '@material-ui/core';
+import { DialogContent, DialogTitle, Snackbar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Table from '@material-ui/core/Table';
@@ -19,13 +19,14 @@ class Users extends Component {
     this.state = {
       users: null,
       user: null,
+      refresh: false,
     };
   }
   componentDidMount() {
     this.refreshList();
   }
   refreshList() {
-    user.getUsers().then(users => this.setState({ users, user: null }));
+    user.getUsers().then(users => this.setState({ users, user: null, refresh: true }));
   }
   canRedeem(status, createdAt) {
     const isAnApprovedStatus = REDEEM.APPROVED_STATUS.find(approvedStatus => approvedStatus === status);
@@ -36,6 +37,7 @@ class Users extends Component {
     return (
       <div>
         {this.renderRedeem()}
+        {this.renderRefreshSnack()}
         <Table>
           <TableHead>
             <TableRow>
@@ -55,6 +57,16 @@ class Users extends Component {
           </TableBody>
         </Table>
       </div>
+    );
+  }
+  renderRefreshSnack() {
+    return (
+      <Snackbar
+        open={this.state.refresh}
+        autoHideDuration={6000}
+        onClose={() => this.setState({ refresh: false })}
+        message={<span>Lista atualizada</span>}
+      />
     );
   }
   renderUser() {
