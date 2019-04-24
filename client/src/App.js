@@ -7,12 +7,6 @@ import React, { Component } from 'react';
 import Users from './components/Users';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: null,
-    };
-  }
   render() {
     return (
       <div>
